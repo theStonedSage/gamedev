@@ -1,0 +1,155 @@
+<%- include("header") -%>
+
+<div class="container">
+  <div class="row">
+      <div class="left-div col-md-3">
+
+        <% if (data) { %>
+          <% for(var i=0;i<Math.min(data.length,6);i++){ %>
+
+            <div class="card card-style bg-black rounded" style="width: 15rem;">
+              <img src="http://media.steampowered.com/steamcommunity/public/images/apps/<%= data[i].appid %>/<%= data[i].img_logo_url %>.jpg" class="card-img-top" alt="...">
+              
+              <div style=" background-color:  #1b262c; border-bottom: 1px solid gray;border-top: 1px solid gray;" class="card-body card mb-1 mt-3 ">
+                  <div class="row p-0 ">
+                    <div class="col-md-4">
+                      <img style="width:3rem;" src="http://media.steampowered.com/steamcommunity/public/images/apps/<%= data[i].appid %>/<%= data[i].img_icon_url %>.jpg" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8 ">
+                      <div class="card-body p-0">
+                        <h6 class="card-title"><%= data[i].name %></h6>
+                        <p class="card-text">Hours played: <%= data[i].playtime_forever %></p>
+                        <!-- <p class="card-text">On windows: <%= data[i].playtime_windows_forever %></p> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+              <div class="card-body">
+                  <a href="#" class="btn btn-danger btn-sm"><i style="color: white;" class="fas fa-heart "></i> </a>
+                <a href="#" class="btn btn-primary btn-sm ml-3"><i style="color: white;" class="fas fa-thumbs-up"></i></a>
+                <a href="#" class="btn btn-success btn-sm ml-3"><i style="color: white;" class="fas fa-info-circle "></i></a>
+                
+              </div>
+            </div>
+            
+        <% } %>
+        <% }else{ %>
+          <div class="card card-style bg-black rounded" style="width: 15rem;">
+            <h2>make profile public</h2>
+          </div>
+        <% } %> 
+        
+    </div>
+    <div  class="mid-div col-md-6">
+      <div class="cover">
+              <a href="" class="btn btn-light btn-sm "><i style="color: red;" class="fab fa-youtube fa-lg"></i></a>
+              <a href="#" class="btn btn-primary btn-sm ml-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+              <a href="#"  class="btn btn-light  btn-sm ml-3"><i style="color:#3e4377;" class="fab fa-discord fa-lg"></i></a>
+              <h2  class="mt-5 "><%= profile.personaname %><a href="" ><i style="color:black;" class="fab fa-steam ml-2"></i></a></h2>
+              <h5><%= profile.realname||"user" %> <h5>
+      </div>
+      <img id="profile" src=<%= profile.avatarfull %>alt="">
+      <div class="stats">
+        <a href="#" style="margin:0 0 0 15rem;" class="btn btn-primary btn-sm mr-2">Follow</a>
+              <a href="#" class=" btn btn-danger btn-sm" data-toggle="tooltip" data-placement="right" title="GG your mate">Repo ++</a>
+              <a href="#" id="status" style="margin:0 0 0 20rem;" class="btn btn-normal btn-color btn-h btn-sm mr-2 mt-4">Status</a>
+              <a href="#" id="photo" class="btn btn-normal btn-h  btn-sm mr-1 mt-4 ">Host</a>
+              <a href="#" id="vedio" class="btn btn-normal btn-h btn-sm mr-1 mt-4">Gameplay</a>
+
+              <div id="upload" class="upload ">
+
+                <div id="stat" class="show">
+                  <img style="width:3rem; margin-right: 1rem; float: left;border: 2px solid greenyellow; border-radius: 0.7rem;"src=<%= profile.avatarmedium %> alt="">
+                <i class="fas fa-bars float-right mr-2"></i>
+                <p><strong>@<%= profile.personaname %></strong></p>
+                <p><%= profile.realname||"user" %></p>
+
+                <form action="/profile/posts" method="post">
+                  <textarea class="textbox" name="post" rows="4" cols="60" id="comment" placeholder="Whats on your mind .."></textarea>
+                  <button class="btn btn-primary btn-sm " type="submit">Post</button>
+                  <button class="btn btn-danger btn-sm ml-2">PIN Squad</button>
+                  <a class="float-right text-light" href=""><i class="fas fa-image fa-lg ml-3 mt-2"></i></a>
+                  <a href="" class="float-right text-light"><i class="fas fa-video fa-lg mt-2 "></i></a>
+                </form>
+                </div>
+
+                <div id="pic" class="hide">
+
+                  <img style="width:3rem; margin-right: 1rem; float: left;border: 2px solid greenyellow; border-radius: 0.7rem;"src=<%= profile.avatarmedium %> alt="">
+                  <i class="fas fa-bars float-right mr-2"></i>
+                  <p><strong>@<%= profile.personaname %></strong></p>
+                  <p class="text-secondary"><%= profile.realname||"user" %></p>
+                  <form action="" method="post">
+                    
+                    <div class="form-group mt-3">
+                      <label for="exampleFormControlInput1">Contest Name</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="relevent name for the contest">
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="exampleFormControlSelect1">Select Game</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                          <option>Players Unknown Battleground</option>
+                          <option>Dota 2</option>
+                          <option>F0rtnite</option>
+                          <option>Rocket League</option>
+                          <option>League of Legends</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="exampleFormControlSelect1">Prize</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                          <option>Nil</option>
+                          <option>$10</option>
+                          <option>$100</option>
+                          <option>$1000</option>
+                          <option>$10000</option>
+                        </select> 
+                    </div>
+                    </div>
+                    <div class="form-group mb-4">
+                      <label for="exampleFormControlSelect1">Audience</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                          <option>Public</option>
+                          <option>Friends only</option>
+                        </select> 
+                    </div>
+                    
+                    <button class="btn btn-primary btn-sm " type="submit">Host</button>
+                    <button class="btn btn-danger btn-sm ml-2">PIN Squad</button>
+                     </form>
+                </div>
+  
+              </div>
+          <% profile.posts.forEach(element => {%>
+              <div class="posts">
+                <img style="width:3rem; margin-right: 1rem; float: left;border: 2px solid greenyellow; border-radius: 0.7rem;" src=<%= profile.avatarmedium %> alt="">
+                <i class="fas fa-bars float-right mr-2"></i>
+                <p><strong>@<%= profile.personaname %></strong></p>
+                <p class="text-secondary"><%= profile.realname||"user" %></p>
+                <p style="padding-top: 1rem;"><%= element %> </p>
+                <a href="#" class="btn btn-danger btn-sm praise"><i style="color: white;" class="fas fa-heart "></i> </a>
+                <a href="#" class="btn btn-primary btn-sm ml-3 praise"><i style="color: white;" class="fas fa-thumbs-up"></i></a>
+                <a href="#" class="btn btn-success btn-sm ml-3 praise"><i style="color: white;" class="fas fa-comment "></i></a>
+              </div>
+           <% }); %> 
+      </div>
+  </div>
+  <div class="right-div col-md-3">
+
+  </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<%- include("footer") -%>
